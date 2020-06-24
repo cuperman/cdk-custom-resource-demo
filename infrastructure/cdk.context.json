@@ -1,0 +1,63 @@
+{
+  "vpc-provider:account=588611805875:filter.tag:Name=MeetupNetwork/VPC:region=us-east-1:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-07da5e244336a2434",
+    "vpcCidrBlock": "10.0.0.0/16",
+    "availabilityZones": [],
+    "subnetGroups": [
+      {
+        "name": "Private",
+        "type": "Private",
+        "subnets": [
+          {
+            "subnetId": "subnet-090c60490c550b72a",
+            "cidr": "10.0.64.0/19",
+            "availabilityZone": "us-east-1a",
+            "routeTableId": "rtb-032789f2cd3f47bc2"
+          },
+          {
+            "subnetId": "subnet-0341e749b3ace41c9",
+            "cidr": "10.0.96.0/19",
+            "availabilityZone": "us-east-1b",
+            "routeTableId": "rtb-0adb2973b69027f9d"
+          }
+        ]
+      },
+      {
+        "name": "Public",
+        "type": "Public",
+        "subnets": [
+          {
+            "subnetId": "subnet-0a52e0fae302969c6",
+            "cidr": "10.0.0.0/19",
+            "availabilityZone": "us-east-1a",
+            "routeTableId": "rtb-002fe3e79d7893bb0"
+          },
+          {
+            "subnetId": "subnet-0e2ba0dc40f3aeb54",
+            "cidr": "10.0.32.0/19",
+            "availabilityZone": "us-east-1b",
+            "routeTableId": "rtb-02c9e6ff8f353b3c0"
+          }
+        ]
+      },
+      {
+        "name": "Isolated",
+        "type": "Isolated",
+        "subnets": [
+          {
+            "subnetId": "subnet-0ad8eecb1aafa5a72",
+            "cidr": "10.0.128.0/19",
+            "availabilityZone": "us-east-1a",
+            "routeTableId": "rtb-0ff2a5db19364671c"
+          },
+          {
+            "subnetId": "subnet-0c0c0f3c539e0d6f0",
+            "cidr": "10.0.160.0/19",
+            "availabilityZone": "us-east-1b",
+            "routeTableId": "rtb-00e7189c42bc4b13f"
+          }
+        ]
+      }
+    ]
+  }
+}
