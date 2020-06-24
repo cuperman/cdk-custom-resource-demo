@@ -4,6 +4,8 @@ import * as ecr from "@aws-cdk/aws-ecr";
 import * as ecs from "@aws-cdk/aws-ecs";
 import * as ecsPatterns from "@aws-cdk/aws-ecs-patterns";
 
+import * as ecrSettings from "./constructs/ecr-settings";
+
 export interface FargateExampleStackProps extends cdk.StackProps {
   readonly vpcConfig: ec2.VpcLookupOptions;
   readonly image: string; // ex: namespace/foobar:latest
@@ -23,6 +25,12 @@ export class FargateExampleStack extends cdk.Stack {
 
     const repo = new ecr.Repository(this, "Repository", {
       repositoryName: `${imageName}`,
+    });
+
+    new ecrSettings.EcrSettings(this, "RepositorySettings", {
+      ecrRepository: repo,
+      scanOnPush: false,
+      tagImmutability: false,
     });
 
     const containerImage = ecs.ContainerImage.fromEcrRepository(repo, imageTag);
