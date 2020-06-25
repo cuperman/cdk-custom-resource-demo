@@ -5,10 +5,13 @@ import * as ecs from "@aws-cdk/aws-ecs";
 import * as ecsPatterns from "@aws-cdk/aws-ecs-patterns";
 
 import * as ecrSettings from "./constructs/ecr-settings";
+import * as docker from "./constructs/docker";
+import { Registry } from "./constructs/docker";
 
 export interface FargateExampleStackProps extends cdk.StackProps {
   readonly vpcConfig: ec2.VpcLookupOptions;
   readonly image: string; // ex: namespace/foobar:latest
+  readonly registryConfig: docker.RegistryConfigProps;
 }
 
 export class FargateExampleStack extends cdk.Stack {
@@ -29,8 +32,18 @@ export class FargateExampleStack extends cdk.Stack {
 
     new ecrSettings.EcrSettings(this, "RepositorySettings", {
       ecrRepository: repo,
-      scanOnPush: false,
-      tagImmutability: false,
+      scanOnPush: true,
+      tagImmutability: true,
+    });
+
+    const centralRegistry = docker.Registry.fromConfig(props.registryConfig);
+
+    const imageReplicator = new docker.ImageReplicator(this, "ImageReplicator");
+
+    imageReplicator.replicateImage({
+      source: centralRegistry,
+      target: Registry.fromEcrRepository(repo),
+      image: props.image,
     });
 
     const containerImage = ecs.ContainerImage.fromEcrRepository(repo, imageTag);

@@ -1,6 +1,4 @@
-const AWS = require("aws-sdk");
-
-const ecr = new AWS.ECR();
+const ECR = require("aws-sdk/clients/ecr");
 
 const DEFAULT_SCAN_ON_PUSH = false;
 const DEFAULT_TAG_IMMUTABILITY = false;
@@ -24,6 +22,8 @@ async function onCreate(event) {
   const repositoryName = props.RepositoryName;
   const scanOnPush = parseBoolean(props.ScanOnPush);
   const tagImmutability = parseBoolean(props.TagImmutability);
+
+  const ecr = new ECR();
 
   // on create, update the settings if the value differs from the default
   if (scanOnPush !== DEFAULT_SCAN_ON_PUSH) {
@@ -66,6 +66,8 @@ async function onUpdate(event) {
   const repositoryName = props.RepositoryName;
   const scanOnPush = parseBoolean(props.ScanOnPush);
   const tagImmutability = parseBoolean(props.TagImmutability);
+
+  const ecr = new ECR();
 
   // on update, update the settings if the value differs from previous value or if the repository changes
   if (
@@ -111,6 +113,8 @@ async function onDelete(event) {
   const props = event.ResourceProperties;
 
   const repositoryName = props.RepositoryName;
+
+  const ecr = new ECR();
 
   // on delete, always restore default value
   const scanOnPushResponse = await ecr

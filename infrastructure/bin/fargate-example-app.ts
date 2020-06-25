@@ -12,5 +12,10 @@ new FargateExampleStack(app, "FargateExample", {
   vpcConfig: {
     vpcName: "MeetupNetwork/VPC",
   },
-  image: "helloworld:latest",
+  registryConfig: {
+    domain: "docker.pkg.github.com",
+    usernameId: "cuperman/docker/github:username",
+    passwordId: "cuperman/docker/github:password",
+  },
+  image: "cuperman/cdk-custom-resource-demo/helloworld:latest",
 });
